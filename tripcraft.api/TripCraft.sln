@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7C4251FA-4B69-48EE-90F6-0B0E6EBC51D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripCraft.Domain", "src\TripCraft.Domain\TripCraft.Domain.csproj", "{7938F133-FA8C-4041-AD31-B964AAF4296B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripCraft.Application", "src\TripCraft.Application\TripCraft.Application.csproj", "{6ED3F5AB-CD78-44FC-A8FE-749D8601852D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripCraft.Infrastructure", "src\TripCraft.Infrastructure\TripCraft.Infrastructure.csproj", "{B1230DF0-89E7-4245-93F2-0DB631E48241}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripCraft.Api", "src\TripCraft.Api\TripCraft.Api.csproj", "{7EBAD3B3-7D49-4FAF-82AC-85C744A38424}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CDB43C15-0157-4910-9FB5-CACC5B02D30A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripCraft.Application.Tests", "tests\TripCraft.Application.Tests\TripCraft.Application.Tests.csproj", "{F1441195-BE71-42A1-87BB-316740E11B85}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7938F133-FA8C-4041-AD31-B964AAF4296B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7938F133-FA8C-4041-AD31-B964AAF4296B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7938F133-FA8C-4041-AD31-B964AAF4296B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7938F133-FA8C-4041-AD31-B964AAF4296B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ED3F5AB-CD78-44FC-A8FE-749D8601852D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ED3F5AB-CD78-44FC-A8FE-749D8601852D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ED3F5AB-CD78-44FC-A8FE-749D8601852D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ED3F5AB-CD78-44FC-A8FE-749D8601852D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1230DF0-89E7-4245-93F2-0DB631E48241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1230DF0-89E7-4245-93F2-0DB631E48241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1230DF0-89E7-4245-93F2-0DB631E48241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1230DF0-89E7-4245-93F2-0DB631E48241}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EBAD3B3-7D49-4FAF-82AC-85C744A38424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EBAD3B3-7D49-4FAF-82AC-85C744A38424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EBAD3B3-7D49-4FAF-82AC-85C744A38424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EBAD3B3-7D49-4FAF-82AC-85C744A38424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1441195-BE71-42A1-87BB-316740E11B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1441195-BE71-42A1-87BB-316740E11B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1441195-BE71-42A1-87BB-316740E11B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1441195-BE71-42A1-87BB-316740E11B85}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7938F133-FA8C-4041-AD31-B964AAF4296B} = {7C4251FA-4B69-48EE-90F6-0B0E6EBC51D4}
+		{6ED3F5AB-CD78-44FC-A8FE-749D8601852D} = {7C4251FA-4B69-48EE-90F6-0B0E6EBC51D4}
+		{B1230DF0-89E7-4245-93F2-0DB631E48241} = {7C4251FA-4B69-48EE-90F6-0B0E6EBC51D4}
+		{7EBAD3B3-7D49-4FAF-82AC-85C744A38424} = {7C4251FA-4B69-48EE-90F6-0B0E6EBC51D4}
+		{F1441195-BE71-42A1-87BB-316740E11B85} = {CDB43C15-0157-4910-9FB5-CACC5B02D30A}
+	EndGlobalSection
+EndGlobal
