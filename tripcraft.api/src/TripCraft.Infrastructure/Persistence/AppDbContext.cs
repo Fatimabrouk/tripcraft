@@ -3,7 +3,7 @@ using TripCraft.Domain.Entities;
 
 namespace TripCraft.Infrastructure.Persistence;
 
-public class AppDbContext : IdentityDbContext<AppUser>
+public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
