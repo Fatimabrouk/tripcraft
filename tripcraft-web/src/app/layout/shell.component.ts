@@ -7,12 +7,24 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   standalone: true,
   imports: [RouterOutlet, SidebarComponent],
   template: `
-    <div style="display: flex;">
+    <div class="app-shell">
       <app-sidebar></app-sidebar>
-      <main style="flex: 1; padding: 1.5rem;">
+      <main class="app-content">
         <router-outlet></router-outlet>
       </main>
     </div>
-  `
+  `,
+  styles: [`
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+    }
+    .app-content {
+      flex: 1;
+      padding: 1.75rem 2rem;
+      max-width: 1100px;
+      box-sizing: border-box;
+    }
+  `]
 })
 export class ShellComponent {}
