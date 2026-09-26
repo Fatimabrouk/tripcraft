@@ -4,14 +4,19 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   template: `
     <div class="auth-card">
-      <h2>Log in</h2>
+      <h2>Create your account</h2>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <label>
+          Display name
+          <input type="text" formControlName="displayName" />
+        </label>
+
         <label>
           Email
           <input type="email" formControlName="email" />
@@ -27,11 +32,11 @@ import { AuthService } from '../../core/auth/auth.service';
         }
 
         <button type="submit" [disabled]="form.invalid || loading()">
-          {{ loading() ? 'Logging in...' : 'Log in' }}
+          {{ loading() ? 'Creating account...' : 'Create account' }}
         </button>
       </form>
 
-      <p class="switch">No account? <a routerLink="/register">Register</a></p>
+      <p class="switch">Already have an account? <a routerLink="/login">Log in</a></p>
     </div>
   `,
   styles: [`
@@ -42,7 +47,7 @@ import { AuthService } from '../../core/auth/auth.service';
     .switch { font-size: 13px; text-align: center; }
   `]
 })
-export class LoginComponent {
+export class RegisterComponent {
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
   private router = inject(Router);
@@ -51,24 +56,29 @@ export class LoginComponent {
   errorMessage = signal<string | null>(null);
 
   form = this.fb.group({
+    displayName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
+    password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
   onSubmit(): void {
     if (this.form.invalid) return;
+
     this.loading.set(true);
     this.errorMessage.set(null);
 
-    const { email, password } = this.form.getRawValue();
-    this.auth.login(email!, password!).subscribe({
+    const { email, password, displayName } = this.form.getRawValue();
+
+    this.auth.register(email!, password!, displayName!).subscribe({
       next: () => {
         this.loading.set(false);
         this.router.navigate(['/dashboard']);
       },
-      error: () => {
+      error: (err) => {
         this.loading.set(false);
-        this.errorMessage.set('Invalid email or password.');
+        this.errorMessage.set(
+          err?.error?.[0] ?? 'Could not create account.'
+        );
       }
     });
   }

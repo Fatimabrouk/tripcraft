@@ -8,6 +8,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('./layout/shell.component').then(m => m.ShellComponent),
     children: [
+      { path: 'register', loadComponent: () => import('./features/auth/register.component').then(m => m.RegisterComponent) },
       { path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
       { path: 'trips', loadComponent: () => import('./features/trips/trip-list.component').then(m => m.TripListComponent) },
       { path: 'trips/:id', loadComponent: () => import('./features/trips/trip-detail.component').then(m => m.TripDetailComponent) },
