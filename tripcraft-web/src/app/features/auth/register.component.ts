@@ -63,12 +63,10 @@ export class RegisterComponent {
 
   onSubmit(): void {
     if (this.form.invalid) return;
-
     this.loading.set(true);
     this.errorMessage.set(null);
 
     const { email, password, displayName } = this.form.getRawValue();
-
     this.auth.register(email!, password!, displayName!).subscribe({
       next: () => {
         this.loading.set(false);
@@ -76,9 +74,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         this.loading.set(false);
-        this.errorMessage.set(
-          err?.error?.[0] ?? 'Could not create account.'
-        );
+        this.errorMessage.set(err?.error?.[0] ?? 'Could not create account.');
       }
     });
   }
