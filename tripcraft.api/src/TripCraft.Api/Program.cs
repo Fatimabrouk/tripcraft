@@ -10,6 +10,8 @@ using TripCraft.Infrastructure.Persistence;
 using FluentValidation;
 using TripCraft.Application.Trips;
 using TripCraft.Infrastructure.Trips;
+using TripCraft.Application.Stops;
+using TripCraft.Infrastructure.Stops;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +53,7 @@ builder.Services.AddAuthorization();
 // ---------- App services ----------
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ITripService, TripService>();
+builder.Services.AddScoped<IStopService, StopService>();
     // finds every AbstractValidator<T> in the Application assembly automatically
 builder.Services.AddValidatorsFromAssemblyContaining<CreateTripValidator>();
 
