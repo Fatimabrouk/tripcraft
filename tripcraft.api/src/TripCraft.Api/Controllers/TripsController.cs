@@ -1,44 +1,55 @@
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using TripCraft.Application.Trips;
 
 namespace TripCraft.Api.Controllers;
 
-[ApiController]
-[Authorize]
 [Route("api/trips")]
-public class TripsController : ControllerBase
+public class TripsController : ApiControllerBase
 {
-    private readonly ITripService _tripService;
-    public TripsController(ITripService tripService) => _tripService = tripService;
+    private readonly ITripService _trips;
+    private readonly IValidator<CreateTripRequest> _createValidator;
+    private readonly IValidator<UpdateTripRequest> _updateValidator;
 
-    private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)
-        ?? throw new UnauthorizedAccessException();
+    public TripsController(
+        ITripService trips,
+        IValidator<CreateTripRequest> createValidator,
+        IValidator<UpdateTripRequest> updateValidator)
+    {
+        _trips = trips;
+        _createValidator = createValidator;
+        _updateValidator = updateValidator;
+    }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll(CancellationToken ct)
-        => Ok(await _tripService.GetTripsForUserAsync(UserId, ct));
+    public async Task<ActionResult<IReadOnlyList<TripDto>>> GetAll(CancellationToken ct)
+        => Ok(await _trips.GetTripsForUserAsync(UserId, ct));
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
+    public async Task<ActionResult<TripDto>> GetById(Guid id, CancellationToken ct)
     {
-        var trip = await _tripService.GetByIdAsync(id, UserId, ct);
+        var trip = await _trips.GetByIdAsync(id, UserId, ct);
         return trip is null ? NotFound() : Ok(trip);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateTripRequest request, CancellationToken ct)
+    public async Task<ActionResult<TripDto>> Create(CreateTripRequest request, CancellationToken ct)
     {
-        var trip = await _tripService.CreateAsync(UserId, request, ct);
-        return CreatedAtAction(nameof(GetById), new { id = trip.Id }, trip);
+        if (await ValidateAsync(_createValidator, request, ct) is { } invalid) return invalid;
+
+        var trip = await _trips.CreateAsync(UserId, request, ct);
+        return CreatedAtAction(nameof(GetById), new { id = trip.Id }, trip);   // 201 + Location header
     }
 
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, UpdateTripRequest request, CancellationToken ct)
-        => await _tripService.UpdateAsync(id, UserId, request, ct) ? NoContent() : NotFound();
+    {
+        if (await ValidateAsync(_updateValidator, request, ct) is { } invalid) return invalid;
+
+        return await _trips.UpdateAsync(id, UserId, request, ct) ? NoContent() : NotFound();
+    }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
-        => await _tripService.DeleteAsync(id, UserId, ct) ? NoContent() : NotFound();
+        => await _trips.DeleteAsync(id, UserId, ct) ? NoContent() : NotFound();
 }
